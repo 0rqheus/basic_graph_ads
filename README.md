@@ -1,7 +1,9 @@
 TODO:
 - Algorithms
-    - BFS
     - DFS
     - Dijkstra's algorithm
+    - Red-Black trees
+    - AVL trees
+    - Binary heap
     - Quick search
     - dynamic
