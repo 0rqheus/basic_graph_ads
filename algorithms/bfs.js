@@ -1,16 +1,4 @@
-//         A
-//      /  |  \
-//     B   C   D
-//   / |   |
-//  E  F   G
-
-
-class Node {
-    constructor(val, childrens = []) {
-        this.val = val;
-        this.childrens = childrens;
-    }
-}
+import { A as root } from "../data/graph.mjs";
 
 const BFS = (root, value) => {
 
@@ -21,12 +9,12 @@ const BFS = (root, value) => {
         const currentElement = queue[0];
 
 
-        if(currentElement.val === value) {
+        if(currentElement.value === value) {
             // return match
             return currentElement;
 
         } else {
-            //delete current element from queue
+            //delete current(1st) element from queue
             queue.shift();
 
             // add childrens of current element to queue
@@ -38,14 +26,4 @@ const BFS = (root, value) => {
     }
 }
 
-
-// data 
-const G = new Node(3);
-const F = new Node(6);
-const E = new Node(5);
-const D = new Node(10);
-const C = new Node(13, [G]);
-const B = new Node(11, [E, F]);
-const A = new Node(15, [B, C, D]);
-
-console.log(BFS(A, 11));
+console.log(BFS(root, 11));
