@@ -8,7 +8,7 @@ const DFS = (root, value) => {
 
     for(const node of root.childrens) {
         DFS(node);
-    }    
+    }
 }
 
 DFS(root);
