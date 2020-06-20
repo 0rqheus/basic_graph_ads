@@ -1,87 +1,59 @@
-//      5
-//   /     \
-//  6       4
-//  | \   / |
-//  |   3   |  
-//  | /   \ |
-//  1-------2
+import edgesList from "../data/edgesList.js";
 
-const graphEdgesList = [
-    {
-        vertex1: 1,
-        vertex2: 2,
-        weight: 7
-    },
-    {
-        vertex1: 1,
-        vertex2: 3,
-        weight: 9
-    },
-    {
-        vertex1: 1,
-        vertex2: 6,
-        weight: 14
-    },
-    {
-        vertex1: 2,
-        vertex2: 3,
-        weight: 10
-    },
-    {
-        vertex1: 2,
-        vertex2: 4,
-        weight: 15
-    },
-    {
-        vertex1: 3,
-        vertex2: 4,
-        weight: 11
-    },
-    {
-        vertex1: 3,
-        vertex2: 6,
-        weight: 2
-    },
-    {
-        vertex1: 6,
-        vertex2: 5,
-        weight: 9
-    },
-    {
-        vertex1: 4,
-        vertex2: 5,
-        weight: 6
-    },
-];
+// Marks ([
+//     [1, 0],
+//     [2, Infinity],
+//     [3, Infinity],
+//     [4, Infinity],
+//     [5, Infinity],
+//     [6, Infinity],
+// ]);
 
-const marks = new Map([
-    [1, 0],
-    [2, Infinity],
-    [3, Infinity],
-    [4, Infinity],
-    [5, Infinity],
-    [6, Infinity],
-]);
+const vertexes = new Set(
+    edgesList.map(item => item.vertex1)
+);
+
+// console.log(vertexes.keys());
+
+const tmpArrForMarks = [];
+for(const item of vertexes) {
+    tmpArrForMarks.push([item, Infinity]);
+}
+
+const marks = new Map(tmpArrForMarks);
+marks.set(edgesList[0].vertex1, 0);
+
+
+const tmpArrForVisited = [];
+for(const item of vertexes) {
+    tmpArrForVisited.push([item, false]);
+}
+const visited = new Map(tmpArrForVisited);
 
 const dijkstra = () => {
 
     for(const vertex of marks.keys()) {
         // console.log(vertex);
 
-        const neighbours = graphEdgesList.filter(item => item.vertex1 === vertex);
+        const neighbours = edgesList.filter(item => item.vertex1 === vertex);
 
         for(const neighbour of neighbours) {
 
             const key = neighbour.vertex2
 
-            const neighbourMark = marks.get(key);
-            const newMark = neighbour.weight + marks.get(vertex);
+            if(!visited.get(key)) {
+                const neighbourMark = marks.get(key);
+                const newMark = neighbour.weight + marks.get(vertex);
+    
+                console.log(neighbourMark, newMark);
+    
+                if(neighbourMark > newMark) 
+                    marks.set(key, newMark)
+            }
 
-            console.log(neighbourMark, newMark);
-
-            if(neighbourMark > newMark) 
-                marks.set(key, newMark)
         }
+        
+        visited.set(vertex, true);
     }
 
 };

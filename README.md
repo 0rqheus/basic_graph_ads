@@ -1,9 +1,10 @@
 TODO:
 - Algorithms
-    - DFS
-    - Dijkstra's algorithm
-    - Red-Black trees
-    - AVL trees
-    - Binary heap
     - Quick search
     - dynamic
+
+- Data structures
+    - Hash table
+    - Binary heap
+    - Red-Black trees
+    - AVL trees
