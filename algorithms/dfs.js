@@ -2,13 +2,22 @@ import { A as root } from "../data/graph.mjs";
 
 const DFS = (root, value) => {
 
-    console.log(root.value);
+    // console.log(root);
 
-    if(root.childrens.length === 0) return;
+    if(root.value === value) return root;
 
-    for(const node of root.childrens) {
-        DFS(node);
+    if(root.childrens.length !== 0) {
+        let result;
+        
+        for(const node of root.childrens) {
+            result = DFS(node, value);
+
+            if(result !== null)
+                return result;
+        }
     }
+
+    return null;
 }
 
-DFS(root);
+console.log(DFS(root, 88));
