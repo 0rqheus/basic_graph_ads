@@ -1,10 +1,7 @@
-import { A as root } from "../data/graph.mjs";
-
 const DFS = (root, value) => {
 
-    // console.log(root);
-
-    if(root.value === value) return root;
+    if(root.value === value) 
+        return root;
 
     if(root.childrens.length !== 0) {
         let result;
@@ -20,4 +17,4 @@ const DFS = (root, value) => {
     return null;
 }
 
-console.log(DFS(root, 88));
+export default DFS;

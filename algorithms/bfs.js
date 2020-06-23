@@ -1,5 +1,3 @@
-import { A as root } from "../data/graph.mjs";
-
 const BFS = (root, value) => {
 
     let queue = [root];
@@ -10,14 +8,11 @@ const BFS = (root, value) => {
 
 
         if(currentElement.value === value) {
-            // return match
             return currentElement;
 
         } else {
-            //delete current(1st) element from queue
             queue.shift();
 
-            // add childrens of current element to queue
             for(const child of currentElement.childrens) {
                 queue.push(child);
             }
@@ -26,4 +21,4 @@ const BFS = (root, value) => {
     }
 }
 
-console.log(BFS(root, 11));
+export default BFS;

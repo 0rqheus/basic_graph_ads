@@ -1,54 +1,63 @@
-import edgesList from "../data/edgesList.js";
+const arrForMarks = (set) => {
+    const arr = [];
 
-// Marks ([
-//     [1, 0],
-//     [2, Infinity],
-//     [3, Infinity],
-//     [4, Infinity],
-//     [5, Infinity],
-//     [6, Infinity],
-// ]);
+    for(const item of set) {
+        arr.push([item, {
+            mark: Infinity,
+            parent: null
+        }]);
+    }
 
-const vertexes = new Set(
-    edgesList.map(item => item.vertex1)
-);
+    const firstItem = arr[0][0];
+    arr[0] = [firstItem, {
+        mark: 0,
+        parent: null
+    }];
 
-// console.log(vertexes.keys());
-
-const tmpArrForMarks = [];
-for(const item of vertexes) {
-    tmpArrForMarks.push([item, Infinity]);
+    return arr;
 }
 
-const marks = new Map(tmpArrForMarks);
-marks.set(edgesList[0].vertex1, 0);
+const arrForVisited = (set) => {
+    const arr = [];
 
+    for(const item of set) {
+        arr.push([item, false]);
+    }
 
-const tmpArrForVisited = [];
-for(const item of vertexes) {
-    tmpArrForVisited.push([item, false]);
+    return arr
 }
-const visited = new Map(tmpArrForVisited);
 
-const dijkstra = () => {
+
+const Dijkstra = (edgesList) => {
+
+    const vertexes = new Set(
+        edgesList.map(item => item.vertex1)
+    );
+
+    const marks = new Map(arrForMarks(vertexes));
+    const visited = new Map(arrForVisited(vertexes));
+
 
     for(const vertex of marks.keys()) {
-        // console.log(vertex);
 
-        const neighbours = edgesList.filter(item => item.vertex1 === vertex);
+        const neighbourEdges = edgesList.filter(item => item.vertex1 === vertex);
 
-        for(const neighbour of neighbours) {
+        for(const edge of neighbourEdges) {
 
-            const key = neighbour.vertex2
+            const neighbourVertex = edge.vertex2
 
-            if(!visited.get(key)) {
-                const neighbourMark = marks.get(key);
-                const newMark = neighbour.weight + marks.get(vertex);
+            if(!visited.get(neighbourVertex)) {
+
+                const neighbourMark = marks.get(neighbourVertex).mark;
+                const newMark = edge.weight + marks.get(vertex).mark;
     
-                console.log(neighbourMark, newMark);
+                // console.table([{neighbourMark, edgeWeight: edge.weight, vertex, vertexWeight: marks.get(vertex).mark}]);
     
                 if(neighbourMark > newMark) 
-                    marks.set(key, newMark)
+                    marks.set(neighbourVertex, {
+                        mark: newMark,
+                        parent: vertex
+                    })
             }
 
         }
@@ -56,12 +65,8 @@ const dijkstra = () => {
         visited.set(vertex, true);
     }
 
+    return marks;
+
 };
 
-dijkstra();
-
-console.log("\n\n");
-
-for(const item of marks) {
-    console.log(item);
-}
+export default Dijkstra;
