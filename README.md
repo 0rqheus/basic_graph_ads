@@ -1,10 +1,9 @@
 TODO:
+- Typescript
 - Algorithms
-    - Quick search
-    - dynamic
+    - Belman-Ford
 
 - Data structures
-    - Hash table
     - Binary heap
     - Red-Black trees
     - AVL trees
