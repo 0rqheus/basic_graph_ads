@@ -1,7 +1,7 @@
 class Node {
     constructor(key) {
         this.key = key;
-        this.height = 0;
+        this.height = 1;
 
         this.left = null;
         this.right = null;
@@ -24,7 +24,7 @@ const updateHeight = (node) => {
                     ? leftHeight 
                     : rightHeight;
 
-    return max + 1;
+    node.height = max + 1;
 }
 
 const rotateRight = (node) => {
@@ -62,29 +62,46 @@ const balance = (node) => {
         if(getBalanceFactor(node.right) < 0)
             node.right = rotateRight(node.right);
         
-        rotateLeft(node);
+        return rotateLeft(node);
     }
     else if(getBalanceFactor(node) === -2) {
 
         if(getBalanceFactor(node.left) > 0)
             node.left = rotateLeft(node.left);
         
-        rotateRight(node);
+        return rotateRight(node);
     }
+
+    return node;
+}
+
+const findMin = (node) => {
+    if(node.left === null)
+        return node;
+    else 
+        return findMin(node.left);
+}
+
+const removeMin = (node) => {
+    if(node.left === null)
+        return node.right;
+
+    node.left = removeMin(node.left);
+    return balance(node);
 }
 
 // public 
 const insert = (root, node) => {
-    if(node.key < root.key && root.left !== null)
-        insert(root.left, node);
-    else if(node.key < root.key && root.left === null)
-        root.left = node;
-    else if(node.key > root.key && root.right !== null)
-        insert(root.right, node);
-    else if(node.key > root.key && root.right === null)
-        root.right = node;
 
-    balance(root);
+    if(root === null)
+        return node;
+
+    if(node.key < root.key)
+        root.left = insert(root.left, node);
+    else
+        root.right = insert(root.right, node);
+
+    return balance(root);
 }
 
 const find = (root, key) => {
@@ -97,26 +114,56 @@ const find = (root, key) => {
         find(root.right, key);
 }
 
-// @todo delete
+const remove = (root, key) => {
+    if(!root)
+        return null;
+
+    if(root.key > key)
+        root.left = remove(root.left, key);
+    else if(root.key < key)
+        root.right = remove(root.right, key);
+    else {
+        const left = root.left;
+        const right = root.right;
+
+        root = null;
+
+        if(right === null)
+            return left;
+        
+        const min = findMin(right);
+        min.right = removeMin(right);
+        min.left = left;
+
+        return balance(min);
+    }
+
+    return balance(root);
+}
 
 const showTree = (node, level = 0) => {
     if(node === null) 
         return;
 
-    showTree(node.left, level + 1);
-    console.log(`${"-".repeat(level)}${node.key}`);
     showTree(node.right, level + 1);
+
+    const margin = "-".repeat(level * 4);
+    console.log(`${margin}${node.key}`);
+
+    showTree(node.left, level + 1);
 }
 
+// 
+// let root = null;
 
-const root = new Node(13);
+// root = insert(root, new Node(10));
+// root = insert(root, new Node(6));
+// root = insert(root, new Node(5));
+// root = insert(root, new Node(4));
+// root = insert(root, new Node(11));
+// root = insert(root, new Node(15));
+// root = insert(root, new Node(14));
 
-insert(root, new Node(10));
-insert(root, new Node(5));
-insert(root, new Node(4));
-insert(root, new Node(6));
-insert(root, new Node(11));
-insert(root, new Node(15));
-insert(root, new Node(16));
+// root = remove(root, 11);
 
-showTree(root);
+// showTree(root);

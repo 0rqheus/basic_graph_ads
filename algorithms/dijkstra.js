@@ -51,8 +51,6 @@ const Dijkstra = (edgesList) => {
                 const neighbourMark = marks.get(neighbourVertex).mark;
                 const newMark = edge.weight + marks.get(vertex).mark;
     
-                // console.table([{neighbourMark, edgeWeight: edge.weight, vertex, vertexWeight: marks.get(vertex).mark}]);
-    
                 if(neighbourMark > newMark) 
                     marks.set(neighbourVertex, {
                         mark: newMark,
