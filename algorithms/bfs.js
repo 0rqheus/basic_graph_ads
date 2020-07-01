@@ -1,4 +1,4 @@
-const BFS = (root, value) => {
+const BFS = (root, targetValue) => {
 
     let queue = [root];
 
@@ -6,8 +6,7 @@ const BFS = (root, value) => {
 
         const currentElement = queue[0];
 
-
-        if(currentElement.value === value) {
+        if(currentElement.value === targetValue) {
             return currentElement;
 
         } else {

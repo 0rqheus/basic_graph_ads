@@ -1,4 +1,1 @@
-TODO:
-- Typescript
-- Algorithms
-    - Belman-Ford
+Basic graph repo
