@@ -1,17 +1,10 @@
-class AVLNode {
+interface AVLNode {
 
     key: number;
-    height: number;
+    height: number; // 1 by default
     left: AVLNode;
     right: AVLNode;
 
-    constructor(key) {
-        this.key = key;
-        this.height = 1;
-
-        this.left = null;
-        this.right = null;
-    }
 }
 
 class AVL {
@@ -172,17 +165,4 @@ class AVL {
     }
 }
 
-
-const obj = new AVL();
-
-obj.insert(new AVLNode(10));
-obj.insert(new AVLNode(6));
-obj.insert(new AVLNode(5));
-obj.insert(new AVLNode(4));
-obj.insert(new AVLNode(11));
-obj.insert(new AVLNode(15));
-obj.insert(new AVLNode(14));
-
-obj.remove(11);
-
-obj.show();
+export {AVL, AVLNode};
