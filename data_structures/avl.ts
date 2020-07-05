@@ -1,24 +1,15 @@
-interface AVLNode {
+export default class AVL {
 
-    key: number;
-    height: number; // 1 by default
-    left: AVLNode;
-    right: AVLNode;
+    private root: graph.AVLNode = null;
 
-}
-
-class AVL {
-
-    private root: AVLNode = null;
-
-    private getBalanceFactor (node: AVLNode) : number {
+    private getBalanceFactor (node: graph.AVLNode) : number {
         const leftHeight: number = node.left?.height | 0; 
         const rightHeight: number = node.right?.height | 0;
     
         return (rightHeight - leftHeight);
     }
 
-    private updateHeight (node: AVLNode) {
+    private updateHeight (node: graph.AVLNode) {
         const leftHeight: number = node.left?.height | 0; 
         const rightHeight: number = node.right?.height | 0;
     
@@ -27,9 +18,9 @@ class AVL {
         node.height = max + 1;
     }
 
-    private rotateRight (node: AVLNode): AVLNode {
-        const A: AVLNode = node;
-        const B: AVLNode = node.left;
+    private rotateRight (node: graph.AVLNode): graph.AVLNode {
+        const A: graph.AVLNode = node;
+        const B: graph.AVLNode = node.left;
     
         A.left = B.right
         B.right = A;
@@ -40,9 +31,9 @@ class AVL {
         return B;
     }
     
-    private rotateLeft (node: AVLNode): AVLNode {
-        const A: AVLNode = node;
-        const B: AVLNode = node.right;
+    private rotateLeft (node: graph.AVLNode): graph.AVLNode {
+        const A: graph.AVLNode = node;
+        const B: graph.AVLNode = node.right;
     
         A.right = B.left
         B.left = A;
@@ -53,7 +44,7 @@ class AVL {
         return B;
     }
     
-    private balance (node: AVLNode): AVLNode {
+    private balance (node: graph.AVLNode): graph.AVLNode {
     
         this.updateHeight(node);
     
@@ -75,14 +66,14 @@ class AVL {
         return node;
     }
     
-    private findMin (node: AVLNode): AVLNode {
+    private findMin (node: graph.AVLNode): graph.AVLNode {
         if(node.left === null)
             return node;
         else 
             return this.findMin(node.left);
     }
     
-    private removeMin (node: AVLNode): AVLNode {
+    private removeMin (node: graph.AVLNode): graph.AVLNode {
         if(node.left === null)
             return node.right;
     
@@ -91,7 +82,7 @@ class AVL {
         return this.balance(node);
     }
 
-    private insertNode (node: AVLNode, root: AVLNode): AVLNode {
+    private insertNode (node: graph.AVLNode, root: graph.AVLNode): graph.AVLNode {
 
         if(root === null)
             return node;
@@ -104,7 +95,7 @@ class AVL {
         return this.balance(root);
     }
 
-    private removeNode (key: number, root: AVLNode) {
+    private removeNode (key: number, root: graph.AVLNode) {
         if(!root)
             return null;
     
@@ -113,15 +104,15 @@ class AVL {
         else if(root.key < key)
             root.right = this.removeNode(key, root.right);
         else {
-            const left: AVLNode = root.left;
-            const right: AVLNode = root.right;
+            const left: graph.AVLNode = root.left;
+            const right: graph.AVLNode = root.right;
     
             root = null;
     
             if(right === null)
                 return left;
             
-            const min: AVLNode = this.findMin(right);
+            const min: graph.AVLNode = this.findMin(right);
             min.right = this.removeMin(right);
             min.left = left;
     
@@ -132,12 +123,11 @@ class AVL {
     }
 
 
-
-    public insert (node: AVLNode) {
+    public insert (node: graph.AVLNode) {
         this.root = this.insertNode(node, this.root);
     }
     
-    public find (key: number, root: AVLNode = this.root) {
+    public find (key: number, root: graph.AVLNode = this.root) {
         if(key === root.key) 
             return root;
     
@@ -151,7 +141,7 @@ class AVL {
         this.root = this.removeNode(key, this.root);
     }
     
-    public show (node: AVLNode = this.root, level: number = 0) {
+    public show (node: graph.AVLNode = this.root, level: number = 0) {
         if(node === null) 
             return;
     
@@ -163,6 +153,4 @@ class AVL {
     
         this.show(node.left, level + 1);
     }
-}
-
-export {AVL, AVLNode};
+};

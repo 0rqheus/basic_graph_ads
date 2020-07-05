@@ -1,12 +1,10 @@
-import IGraphNode from "../data/IGraphNode.js";
+const BFS = (root: graph.INode, targetValue: number): graph.INode => {
 
-const BFS = (root: IGraphNode, targetValue: number): IGraphNode => {
-
-    let queue: Array<IGraphNode> = [root];
+    let queue: Array<graph.INode> = [root];
 
     while(queue.length !== 0) {
 
-        const currentElement: IGraphNode = queue[0];
+        const currentElement: graph.INode = queue[0];
 
         if(currentElement.key === targetValue) {
             return currentElement;

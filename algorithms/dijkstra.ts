@@ -1,11 +1,3 @@
-interface Edge {
-    vertex1: number;
-    vertex2: number;
-    weight: number;
-}
-type Mark = Map<number, {mark: number, parentVertex: number}>;
-type Visited = Map<number, boolean>;
-
 const arrForMarks = (set: Set<number>) => {
     const arr = [];
 
@@ -32,23 +24,21 @@ const arrForVisited = (set: Set<number>) => {
         arr.push([item, false]);
     }
 
-    return arr
+    return arr;
 }
 
-
-
-const Dijkstra = (edgesList: Array<Edge>): Mark => {
+const Dijkstra = (edgesList: Array<graph.IEdge>): graph.Mark => {
 
     const vertexes: Set<number> = new Set(
         edgesList.map(item => item.vertex1)
     );
 
-    const marks: Mark = new Map(arrForMarks(vertexes));
-    const visited: Visited = new Map(arrForVisited(vertexes));
+    const marks: graph.Mark = new Map(arrForMarks(vertexes));
+    const visited: graph.Visited = new Map(arrForVisited(vertexes));
 
     for(const vertex of marks.keys()) {
 
-        const neighbourEdges: Array<Edge> = edgesList.filter(item => item.vertex1 === vertex);
+        const neighbourEdges: Array<graph.IEdge> = edgesList.filter(item => item.vertex1 === vertex);
 
         for(const edge of neighbourEdges) {
 

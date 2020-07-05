@@ -1,12 +1,10 @@
-import IGraphNode from "../data/IGraphNode.js";
-
-const DFS = (root: IGraphNode, value: number): IGraphNode => {
+const DFS = (root: graph.INode, value: number): graph.INode => {
 
     if(root.key === value) 
         return root;
 
     if(root.neighbours.length !== 0) {
-        let result: IGraphNode;
+        let result: graph.INode;
         
         for(const node of root.neighbours) {
             result = DFS(node, value);
