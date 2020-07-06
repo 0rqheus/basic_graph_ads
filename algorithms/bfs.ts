@@ -1,10 +1,10 @@
-const BFS = (root: graph.INode, targetValue: number): graph.INode => {
+const BFS = (root: INode, targetValue: number): INode => {
 
-    let queue: Array<graph.INode> = [root];
+    let queue: Array<INode> = [root];
 
     while(queue.length !== 0) {
 
-        const currentElement: graph.INode = queue[0];
+        const currentElement: INode = queue[0];
 
         if(currentElement.key === targetValue) {
             return currentElement;
@@ -18,6 +18,8 @@ const BFS = (root: graph.INode, targetValue: number): graph.INode => {
         }
 
     }
+
+    return null;
 }
 
 export default BFS;

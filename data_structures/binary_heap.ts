@@ -1,5 +1,6 @@
 export default class BinaryHeap {
-    heap: Array<graph.HeapItem>;
+
+    heap: Array<HeapItem> = [];
 
     private getParentPos = (i: number): number => {
         return Math.floor((i - 1) / 2);
@@ -12,7 +13,7 @@ export default class BinaryHeap {
     }
 
     private swap = (firstPos: number, secondPos: number) => {
-        const tmp: graph.HeapItem = this.heap[firstPos];
+        const tmp: HeapItem = this.heap[firstPos];
         this.heap[firstPos] = this.heap[secondPos];
         this.heap[secondPos] = tmp;
     }
@@ -33,7 +34,7 @@ export default class BinaryHeap {
         }
     }
 
-    add = (item: graph.HeapItem) => {
+    add = (item: HeapItem) => {
         this.heap.push(item);
     
         let currPos: number = this.heap.length - 1;
@@ -48,11 +49,11 @@ export default class BinaryHeap {
         }
     }
     
-    extractMax = (): graph.HeapItem => {
+    extractMax = (): HeapItem => {
     
         if(this.heap.length < 1) return;
     
-        const max: graph.HeapItem = this.heap[0];
+        const max: HeapItem = this.heap[0];
         this.heap[0] = this.heap.pop();
     
         this.heapify(0);

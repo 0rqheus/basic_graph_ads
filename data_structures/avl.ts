@@ -1,15 +1,15 @@
 export default class AVL {
 
-    private root: graph.AVLNode = null;
+    root: AVLNode = null;
 
-    private getBalanceFactor (node: graph.AVLNode) : number {
+    private getBalanceFactor (node: AVLNode) : number {
         const leftHeight: number = node.left?.height | 0; 
         const rightHeight: number = node.right?.height | 0;
     
         return (rightHeight - leftHeight);
     }
 
-    private updateHeight (node: graph.AVLNode) {
+    private updateHeight (node: AVLNode) {
         const leftHeight: number = node.left?.height | 0; 
         const rightHeight: number = node.right?.height | 0;
     
@@ -18,9 +18,9 @@ export default class AVL {
         node.height = max + 1;
     }
 
-    private rotateRight (node: graph.AVLNode): graph.AVLNode {
-        const A: graph.AVLNode = node;
-        const B: graph.AVLNode = node.left;
+    private rotateRight (node: AVLNode): AVLNode {
+        const A: AVLNode = node;
+        const B: AVLNode = node.left;
     
         A.left = B.right
         B.right = A;
@@ -31,9 +31,9 @@ export default class AVL {
         return B;
     }
     
-    private rotateLeft (node: graph.AVLNode): graph.AVLNode {
-        const A: graph.AVLNode = node;
-        const B: graph.AVLNode = node.right;
+    private rotateLeft (node: AVLNode): AVLNode {
+        const A: AVLNode = node;
+        const B: AVLNode = node.right;
     
         A.right = B.left
         B.left = A;
@@ -44,7 +44,7 @@ export default class AVL {
         return B;
     }
     
-    private balance (node: graph.AVLNode): graph.AVLNode {
+    private balance (node: AVLNode): AVLNode {
     
         this.updateHeight(node);
     
@@ -66,14 +66,14 @@ export default class AVL {
         return node;
     }
     
-    private findMin (node: graph.AVLNode): graph.AVLNode {
+    private findMin (node: AVLNode): AVLNode {
         if(node.left === null)
             return node;
         else 
             return this.findMin(node.left);
     }
     
-    private removeMin (node: graph.AVLNode): graph.AVLNode {
+    private removeMin (node: AVLNode): AVLNode {
         if(node.left === null)
             return node.right;
     
@@ -82,7 +82,7 @@ export default class AVL {
         return this.balance(node);
     }
 
-    private insertNode (node: graph.AVLNode, root: graph.AVLNode): graph.AVLNode {
+    private insertNode (node: AVLNode, root: AVLNode): AVLNode {
 
         if(root === null)
             return node;
@@ -95,7 +95,7 @@ export default class AVL {
         return this.balance(root);
     }
 
-    private removeNode (key: number, root: graph.AVLNode) {
+    private removeNode (key: number, root: AVLNode) {
         if(!root)
             return null;
     
@@ -104,15 +104,15 @@ export default class AVL {
         else if(root.key < key)
             root.right = this.removeNode(key, root.right);
         else {
-            const left: graph.AVLNode = root.left;
-            const right: graph.AVLNode = root.right;
+            const left: AVLNode = root.left;
+            const right: AVLNode = root.right;
     
             root = null;
     
             if(right === null)
                 return left;
             
-            const min: graph.AVLNode = this.findMin(right);
+            const min: AVLNode = this.findMin(right);
             min.right = this.removeMin(right);
             min.left = left;
     
@@ -123,11 +123,15 @@ export default class AVL {
     }
 
 
-    public insert (node: graph.AVLNode) {
+    public insert (node: AVLNode) {
         this.root = this.insertNode(node, this.root);
     }
     
-    public find (key: number, root: graph.AVLNode = this.root) {
+    public find (key: number, root: AVLNode = this.root) {
+
+        if(root === null)
+            return null;
+
         if(key === root.key) 
             return root;
     
@@ -141,7 +145,7 @@ export default class AVL {
         this.root = this.removeNode(key, this.root);
     }
     
-    public show (node: graph.AVLNode = this.root, level: number = 0) {
+    public show (node: AVLNode = this.root, level: number = 0) {
         if(node === null) 
             return;
     

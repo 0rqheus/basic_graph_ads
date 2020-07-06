@@ -27,18 +27,18 @@ const arrForVisited = (set: Set<number>) => {
     return arr;
 }
 
-const Dijkstra = (edgesList: Array<graph.IEdge>): graph.Mark => {
+const Dijkstra = (edgesList: Array<IEdge>): Mark => {
 
     const vertexes: Set<number> = new Set(
         edgesList.map(item => item.vertex1)
     );
 
-    const marks: graph.Mark = new Map(arrForMarks(vertexes));
-    const visited: graph.Visited = new Map(arrForVisited(vertexes));
+    const marks: Mark = new Map(arrForMarks(vertexes));
+    const visited: Visited = new Map(arrForVisited(vertexes));
 
     for(const vertex of marks.keys()) {
 
-        const neighbourEdges: Array<graph.IEdge> = edgesList.filter(item => item.vertex1 === vertex);
+        const neighbourEdges: Array<IEdge> = edgesList.filter(item => item.vertex1 === vertex);
 
         for(const edge of neighbourEdges) {
 
