@@ -1,4 +1,4 @@
-import AVL from "../data_structures/avl.js";
+import AVL from "../src/data_structures/avl.js";
 import chai from "chai";
 
 const assert = chai.assert;

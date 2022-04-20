@@ -1,5 +1,5 @@
-import BFS from "../algorithms/bfs.js";
-import DFS from "../algorithms/dfs.js";
+import BFS from "../src/algorithms/bfs.js";
+import DFS from "../src/algorithms/dfs.js";
 import chai from "chai";
 
 const assert = chai.assert;

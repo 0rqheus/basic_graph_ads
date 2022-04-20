@@ -1,4 +1,4 @@
-import Dijkstra from "../algorithms/dijkstra.js";
+import Dijkstra from "../src/algorithms/dijkstra.js";
 import chai from "chai";
 
 const assert = chai.assert;

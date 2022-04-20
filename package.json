@@ -5,9 +5,11 @@
     "type": "module",
     "scripts": {
         "test": "mocha tests/**/*.test.js",
-        "compile": "tsc --project tsconfig.json"
+        "compile": "tsc -p ."
     },
-    "dependencies": {},
+    "dependencies": {
+        "typescript": "^4.6.3"
+    },
     "devDependencies": {
         "chai": "^4.2.0",
         "mocha": "^8.0.1"

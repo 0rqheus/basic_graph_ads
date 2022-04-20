@@ -1,4 +1,4 @@
-import BinaryHeap from "../data_structures/binary_heap.js";
+import BinaryHeap from "../src/data_structures/binary_heap.js";
 import chai from "chai";
 
 const assert = chai.assert;
