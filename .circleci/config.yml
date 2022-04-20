@@ -28,7 +28,7 @@ jobs:
           pkg-manager: npm
       - run:
           name: Build project 
-          command: npm compile
+          command: npm run compile
       - run:
           name: Run tests
           command: npm test
